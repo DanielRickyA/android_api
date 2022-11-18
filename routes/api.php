@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('register', 'Api\UserController@register');
+Route::post('login', 'Api\UserController@login');
+
+Route::get('SewaKendaraan', 'Api\SewaKendaraanController@index');
+Route::get('SewaKendaraan/{id}', 'Api\SewaKendaraanController@show');
+Route::post('SewaKendaraan', 'Api\SewaKendaraanController@store');
+Route::put('SewaKendaraan/{id}', 'Api\SewaKendaraanController@update');
+Route::delete('SewaKendaraan/{id}', 'Api\SewaKendaraanController@destroy');
