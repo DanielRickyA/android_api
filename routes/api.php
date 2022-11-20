@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', 'Api\UserController@register');
 Route::post('login', 'Api\UserController@login');
+Route::get('user/{id}', 'Api\UserController@show');
 
 Route::get('SewaKendaraan', 'Api\SewaKendaraanController@index');
 Route::get('SewaKendaraan/{id}', 'Api\SewaKendaraanController@show');

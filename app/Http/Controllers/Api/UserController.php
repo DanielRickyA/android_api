@@ -44,9 +44,6 @@ class UserController extends Controller
         $validate = Validator::make($loginData, [
             'username' => 'required',
             'password' => 'required',
-            'email' => 'required',
-            'tglLahir' => 'required',
-            'noHp' => 'required',
         ]);
 
         if ($validate->fails())
@@ -61,5 +58,22 @@ class UserController extends Controller
             'message' => 'Authenticated',
             'user' => $user,
         ]);
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if (!is_null($user)) {
+            return response([
+                'message' => 'Berhasil Mendapatkan Data Sewa',
+                'data' => $user
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Data Sewa Tidak Ditemukan',
+            'data' => null
+        ], 404);
     }
 }
