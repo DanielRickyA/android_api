@@ -76,4 +76,44 @@ class UserController extends Controller
             'data' => null
         ], 404);
     }
+
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        if (is_null($user)) {
+            return response([
+                'message' => 'Data Sewa Tidak Ditemukan',
+                'data' => null
+            ], 404);
+        }
+
+        $updateData = $request->all();
+        $validate = Validator::make($updateData, [
+            'username' => 'required',
+            'email' => 'required',
+            'tglLahir' => 'required',
+            'noHp' => 'required',
+        ]);
+
+        if ($validate->fails())
+            return response(['message' => $validate->errors()], 400);
+
+        $user->username = $updateData['username'];
+        $user->email = $updateData['email'];
+        $user->tglLahir = $updateData['tglLahir'];
+        $user->noHp = $updateData['noHp'];
+
+        if ($user->save()) {
+            return response([
+                'message' => 'Data Sewa Berhasil diUpdate',
+                'data' => $user
+            ], 200);
+        }
+
+        return response([
+            'message' => 'Data Sewa Gagal diUpdate',
+            'data' => null
+        ], 400);
+    }
 }

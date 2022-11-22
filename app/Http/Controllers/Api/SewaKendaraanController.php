@@ -39,19 +39,7 @@ class SewaKendaraanController extends Controller
      */
     public function create()
     {
-        $sewa = SewaKendaraan::all();
-
-        if (count($sewa) > 0) {
-            return response([
-                'message' => 'Retrieve All Success',
-                'data' => $sewa
-            ], 200);
-        }
-
-        return response([
-            'message' => 'Empty',
-            'data' => null
-        ], 400);
+        //  
     }
 
     /**
