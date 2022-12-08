@@ -19,13 +19,13 @@ class UserController extends Controller
         $validate = Validator::make($registrationData, [
             'username' => 'required',
             'password' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'tglLahir' => 'required',
-            'noHp' => 'required',
+            'noHp' => 'required|regex:/^(08)[0-9]{9,11}$/',
 
         ]);
         if ($validate->fails())
-            return response(['message' => $validate->errors()], 400);
+            return response(['message' => $validate->errors()->first()], 400);
 
         $registrationData['password'] = bcrypt($request->password);
 
@@ -47,7 +47,7 @@ class UserController extends Controller
         ]);
 
         if ($validate->fails())
-            return response(['message' => $validate->errors()], 400);
+            return response(['message' => $validate->errors()->first()], 400);
 
         if (!Auth::attempt($loginData))
             return response(['message' => 'Invalid Credentials'], 401);

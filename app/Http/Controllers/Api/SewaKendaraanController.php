@@ -60,7 +60,7 @@ class SewaKendaraanController extends Controller
         ]);
         // $storeData = new Product();
         if ($validate->fails())
-            return response(['message' => $validate->errors()], 400);
+            return response(['message' => $validate->errors()->first()], 400);
 
         $sewa = SewaKendaraan::create($storeData);
         return response([
