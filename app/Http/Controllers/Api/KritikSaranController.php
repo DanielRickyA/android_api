@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use App\Models\SewaKendaraan;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\KritikSaran;
 
-class SewaKendaraanController extends Controller
+class KritikSaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +16,11 @@ class SewaKendaraanController extends Controller
      */
     public function index()
     {
-        $sewa = SewaKendaraan::all();
-        if (count($sewa) > 0) {
+        $kritikSaran = KritikSaran::all();
+        if (count($kritikSaran) > 0) {
             return response([
                 'message' => 'Retrieve All Success',
-                'data' => $sewa
+                'data' => $kritikSaran
             ], 200);
         }
 
@@ -39,7 +37,7 @@ class SewaKendaraanController extends Controller
      */
     public function create()
     {
-        //  
+        //
     }
 
     /**
@@ -53,21 +51,17 @@ class SewaKendaraanController extends Controller
         $storeData = $request->all();
 
         $validate = Validator::make($storeData, [
-            'lokasi' => 'required',
-            'tanggalPinjam' => 'required',
-            'tanggalKembali' => 'required',
-            'merkMobil' => 'required',
-            'jenisMobil' => 'required',
-            'jumlahKursi' => 'required|numeric|min:2|max:8',
+            'judul' => 'required',
+            'content' => 'required|max:255',
         ]);
         // $storeData = new Product();
         if ($validate->fails())
             return response(['message' => $validate->errors()->first()], 400);
 
-        $sewa = SewaKendaraan::create($storeData);
+        $kritikSaran = KritikSaran::create($storeData);
         return response([
-            'message' => 'Tambah Sewa Mobil Berhasil',
-            'data' => $sewa
+            'message' => 'Tambah Kritik Saran Berhasil',
+            'data' => $kritikSaran
         ], 200);
     }
 
@@ -79,17 +73,17 @@ class SewaKendaraanController extends Controller
      */
     public function show($id)
     {
-        $sewa = SewaKendaraan::find($id);
+        $kritikSaran = KritikSaran::find($id);
 
-        if (!is_null($sewa)) {
+        if (!is_null($kritikSaran)) {
             return response([
-                'message' => 'Berhasil Mendapatkan Data Sewa',
-                'data' => $sewa
+                'message' => 'Berhasil Mendapatkan Data Kritik Saran',
+                'data' => $kritikSaran
             ], 200);
         }
 
         return response([
-            'message' => 'Data Sewa Tidak Ditemukan',
+            'message' => 'Kritik Saran Tidak Ditemukan',
             'data' => null
         ], 404);
     }
@@ -114,43 +108,35 @@ class SewaKendaraanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sewa = SewaKendaraan::find($id);
-        if (is_null($sewa)) {
+        $kritikSaran = KritikSaran::find($id);
+        if (is_null($kritikSaran)) {
             return response([
-                'message' => 'Data Sewa Tidak Ditemukan',
+                'message' => 'Kritik Saran Tidak Ditemukan',
                 'data' => null
             ], 404);
         }
 
         $updateData = $request->all();
         $validate = Validator::make($updateData, [
-            'lokasi' => 'required',
-            'tanggalPinjam' => 'required',
-            'tanggalKembali' => 'required',
-            'merkMobil' => 'required',
-            'jenisMobil' => 'required',
-            'jumlahKursi' => 'required',
+            'judul' => 'required',
+            'content' => 'required',
         ]);
 
         if ($validate->fails())
             return response(['message' => $validate->errors()], 400);
 
-        $sewa->lokasi = $updateData['lokasi'];
-        $sewa->tanggalPinjam = $updateData['tanggalPinjam'];
-        $sewa->tanggalKembali = $updateData['tanggalKembali'];
-        $sewa->merkMobil = $updateData['merkMobil'];
-        $sewa->jenisMobil = $updateData['jenisMobil'];
-        $sewa->jumlahKursi = $updateData['jumlahKursi'];
+        $kritikSaran->judul = $updateData['judul'];
+        $kritikSaran->content = $updateData['content'];
 
-        if ($sewa->save()) {
+        if ($kritikSaran->save()) {
             return response([
-                'message' => 'Data Sewa Mobil Berhasil diUpdate',
-                'data' => $sewa
+                'message' => 'Data Kritik Saran Berhasil diUpdate',
+                'data' => $kritikSaran
             ], 200);
         }
 
         return response([
-            'message' => 'Data Sewa Gagal diUpdate',
+            'message' => 'Data Kritik Saran Gagal diUpdate',
             'data' => null
         ], 400);
     }
@@ -163,24 +149,24 @@ class SewaKendaraanController extends Controller
      */
     public function destroy($id)
     {
-        $sewa = SewaKendaraan::find($id);
+        $kritikSaran = KritikSaran::find($id);
 
-        if (is_null($sewa)) {
+        if (is_null($kritikSaran)) {
             return response([
-                'message' => 'Data Sewa Tidak Ditemukan',
+                'message' => 'Kritik Saran Tidak Ditemukan',
                 'data' => null
             ], 404);
         }
 
-        if ($sewa->delete()) {
+        if ($kritikSaran->delete()) {
             return response([
-                'message' => 'Hapus Data Sewa Berhasil',
-                'data' => $sewa
+                'message' => 'Hapus Data Kritik Saran Berhasil',
+                'data' => $kritikSaran
             ], 200);
         }
 
         return response([
-            'message' => 'Hapus Data Sewa Tidak Berhasil',
+            'message' => 'Hapus Data Kritik Saran Tidak Berhasil',
             'data' => null
         ], 400);
     }

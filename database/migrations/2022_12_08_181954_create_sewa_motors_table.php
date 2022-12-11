@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sewa_kendaraans', function (Blueprint $table) {
+        Schema::create('sewa_motors', function (Blueprint $table) {
             $table->id();
             $table->string('lokasi');
             $table->string('tanggalPinjam');
             $table->string('tanggalKembali');
-            $table->string('merkMobil');
-            $table->string('jenisMobil');
-            $table->integer('jumlahKursi');
+            $table->string('merkMotor');
+            $table->string('jenisMotor');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sewa_kendaraans');
+        Schema::dropIfExists('sewa_motors');
     }
 };

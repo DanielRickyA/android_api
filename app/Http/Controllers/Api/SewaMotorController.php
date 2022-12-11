@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use App\Models\SewaKendaraan;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\SewaMotor;
 
-class SewaKendaraanController extends Controller
+class SewaMotorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +16,11 @@ class SewaKendaraanController extends Controller
      */
     public function index()
     {
-        $sewa = SewaKendaraan::all();
-        if (count($sewa) > 0) {
+        $sewaMotor = SewaMotor::all();
+        if (count($sewaMotor) > 0) {
             return response([
                 'message' => 'Retrieve All Success',
-                'data' => $sewa
+                'data' => $sewaMotor
             ], 200);
         }
 
@@ -39,7 +37,7 @@ class SewaKendaraanController extends Controller
      */
     public function create()
     {
-        //  
+        //
     }
 
     /**
@@ -56,18 +54,17 @@ class SewaKendaraanController extends Controller
             'lokasi' => 'required',
             'tanggalPinjam' => 'required',
             'tanggalKembali' => 'required',
-            'merkMobil' => 'required',
-            'jenisMobil' => 'required',
-            'jumlahKursi' => 'required|numeric|min:2|max:8',
+            'merkMotor' => 'required',
+            'jenisMotor' => 'required',
         ]);
         // $storeData = new Product();
         if ($validate->fails())
-            return response(['message' => $validate->errors()->first()], 400);
+            return response(['message' => $validate->errors()], 400);
 
-        $sewa = SewaKendaraan::create($storeData);
+        $sewaMotor = SewaMotor::create($storeData);
         return response([
-            'message' => 'Tambah Sewa Mobil Berhasil',
-            'data' => $sewa
+            'message' => 'Tambah Sewa Motor Berhasil',
+            'data' => $sewaMotor
         ], 200);
     }
 
@@ -79,12 +76,12 @@ class SewaKendaraanController extends Controller
      */
     public function show($id)
     {
-        $sewa = SewaKendaraan::find($id);
+        $sewaMotor = SewaMotor::find($id);
 
-        if (!is_null($sewa)) {
+        if (!is_null($sewaMotor)) {
             return response([
                 'message' => 'Berhasil Mendapatkan Data Sewa',
-                'data' => $sewa
+                'data' => $sewaMotor
             ], 200);
         }
 
@@ -114,8 +111,8 @@ class SewaKendaraanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $sewa = SewaKendaraan::find($id);
-        if (is_null($sewa)) {
+        $sewaMotor = SewaMotor::find($id);
+        if (is_null($sewaMotor)) {
             return response([
                 'message' => 'Data Sewa Tidak Ditemukan',
                 'data' => null
@@ -127,25 +124,24 @@ class SewaKendaraanController extends Controller
             'lokasi' => 'required',
             'tanggalPinjam' => 'required',
             'tanggalKembali' => 'required',
-            'merkMobil' => 'required',
-            'jenisMobil' => 'required',
-            'jumlahKursi' => 'required',
+            'merkMotor' => 'required',
+            'jenisMotor' => 'required',
         ]);
 
         if ($validate->fails())
             return response(['message' => $validate->errors()], 400);
 
-        $sewa->lokasi = $updateData['lokasi'];
-        $sewa->tanggalPinjam = $updateData['tanggalPinjam'];
-        $sewa->tanggalKembali = $updateData['tanggalKembali'];
-        $sewa->merkMobil = $updateData['merkMobil'];
-        $sewa->jenisMobil = $updateData['jenisMobil'];
-        $sewa->jumlahKursi = $updateData['jumlahKursi'];
+        $sewaMotor->lokasi = $updateData['lokasi'];
+        $sewaMotor->tanggalPinjam = $updateData['tanggalPinjam'];
+        $sewaMotor->tanggalKembali = $updateData['tanggalKembali'];
+        $sewaMotor->merkMotor = $updateData['merkMotor'];
+        $sewaMotor->jenisMotor = $updateData['jenisMotor'];
 
-        if ($sewa->save()) {
+
+        if ($sewaMotor->save()) {
             return response([
-                'message' => 'Data Sewa Mobil Berhasil diUpdate',
-                'data' => $sewa
+                'message' => 'Data Sewa Motor Berhasil diUpdate',
+                'data' => $sewaMotor
             ], 200);
         }
 
@@ -163,19 +159,19 @@ class SewaKendaraanController extends Controller
      */
     public function destroy($id)
     {
-        $sewa = SewaKendaraan::find($id);
+        $sewaMotor = SewaMotor::find($id);
 
-        if (is_null($sewa)) {
+        if (is_null($sewaMotor)) {
             return response([
                 'message' => 'Data Sewa Tidak Ditemukan',
                 'data' => null
             ], 404);
         }
 
-        if ($sewa->delete()) {
+        if ($sewaMotor->delete()) {
             return response([
                 'message' => 'Hapus Data Sewa Berhasil',
-                'data' => $sewa
+                'data' => $sewaMotor
             ], 200);
         }
 

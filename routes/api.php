@@ -24,3 +24,15 @@ Route::get('SewaKendaraan/{id}', 'Api\SewaKendaraanController@show');
 Route::post('SewaKendaraan', 'Api\SewaKendaraanController@store');
 Route::put('SewaKendaraan/{id}', 'Api\SewaKendaraanController@update');
 Route::delete('SewaKendaraan/{id}', 'Api\SewaKendaraanController@destroy');
+
+Route::get('SewaMotor', 'Api\SewaMotorController@index');
+Route::get('SewaMotor/{id}', 'Api\SewaMotorController@show');
+Route::post('SewaMotor', 'Api\SewaMotorController@store');
+Route::put('SewaMotor/{id}', 'Api\SewaMotorController@update');
+Route::delete('SewaMotor/{id}', 'Api\SewaMotorController@destroy');
+
+Route::get('KritikSaran', 'Api\KritikSaranController@index');
+Route::get('KritikSaran/{id}', 'Api\KritikSaranController@show');
+Route::post('KritikSaran', 'Api\KritikSaranController@store');
+Route::put('KritikSaran/{id}', 'Api\KritikSaranController@update');
+Route::delete('KritikSaran/{id}', 'Api\KritikSaranController@destroy');

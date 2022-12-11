@@ -7,27 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class SewaKendaraan extends Model
+class SewaMotor extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'lokasi',
         'tanggalPinjam',
         'tanggalKembali',
-        'merkMobil',
-        'jenisMobil',
-        'jumlahKursi',
+        'merkMotor',
+        'jenisMotor',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
 }
